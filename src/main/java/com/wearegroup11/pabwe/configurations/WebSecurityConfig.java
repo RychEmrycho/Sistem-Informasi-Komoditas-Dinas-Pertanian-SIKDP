@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/resources/**", "/css/**", "/styles/**", "/js/**", "/img/**").permitAll()
-                .antMatchers("/berita/create").hasAnyAuthority("ADMIN")
+                .antMatchers("/berita/create", "/berita/edit", "/berita/delete").hasAnyAuthority("ADMIN")
                 .antMatchers("/harga-komoditi/create").hasAnyAuthority("ADMIN")
                 .antMatchers("/berita/post-comment-for-berita/{id}").authenticated()
                 .antMatchers("/pengumuman/create").hasAnyAuthority("ADMIN")

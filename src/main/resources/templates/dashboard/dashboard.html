@@ -41,8 +41,7 @@
 
                     <!--hasil pertanian-->
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#hasilPertanian" id="hasil-pertanian-tab"
-                           role="tab">
+                        <a class="nav-link" th:href="@{/hasil-pertanian}">
                             <span class="fa fa-cubes"></span> Hasil pertanian
                         </a>
                     </li>
@@ -362,74 +361,6 @@
                     </table>
                 </div>
             </div>
-
-            <div class="tab-pane" id="hasilPertanian" role="tabpanel">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Hasil pertanian</h1>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered table-striped">
-                        <thead class="thead-dark">
-                        <tr>
-                            <th>Tanggal request</th>
-                            <th>Nama kelompok</th>
-                            <th>Judul bantuan</th>
-                            <th>Proposal</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        <tr>
-                            <td>20 Desember 2018</td>
-                            <td>Maju bersama</td>
-                            <td>Pasokan pupuk untuk desa Sitoluama</td>
-                            <td><a href="#">Unduh file</a></td>
-                            <td>
-                                <a class="btn btn-sm btn-secondary" href="#">View</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!--
-                        <div id="adminSection">
-                            <div class="tab-pane" id="laporan1" role="tabpanel">
-                                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                                    <h1 class="h2">Laporan</h1>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-bordered table-striped">
-                                        <thead class="thead-dark">
-                                        <tr>
-                                            <th>Tanggal</th>
-                                            <th>Kelompok</th>
-                                            <th>Nama laporan</th>
-                                            <th>Lampiran</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        </thead>
-
-                                        <tbody>
-                                        <tr>
-                                            <td>22 Desember 2018</td>
-                                            <td>Maju bersama</td>
-                                            <td>Laporan bulan desember 2018</td>
-                                            <td><a href="#">Unduh file</a></td>
-                                            <td>
-                                                <a class="btn btn-sm btn-secondary" href="#">View</a>
-                                                <a class="btn btn-sm btn-primary" href="#">Accept</a>
-                                                <a class="btn btn-sm btn-danger" href="#">Reject</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-            -->
 
         </main>
     </div>

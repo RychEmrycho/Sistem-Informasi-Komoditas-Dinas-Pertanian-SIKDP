@@ -1,5 +1,15 @@
 package com.wearegroup11.pabwe.storage;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -9,22 +19,20 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.stereotype.Service;
-import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 @Service
 public class FileSystemStorageService implements StorageService {
 
     private final Path rootLocation;
+    Logger logger = LoggerFactory.getLogger(FileSystemStorageService.class);
 
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
+        //DEFAULT
         this.rootLocation = Paths.get(properties.getLocation());
+
+//        this.rootLocation = Paths.get(System.getProperty("user.home") + "/" + properties.getLocation());
+
+        logger.error("STORAGE:: => **upload-dir** location: " + rootLocation);
     }
 
     @Override
@@ -60,7 +68,6 @@ public class FileSystemStorageService implements StorageService {
         catch (IOException e) {
             throw new StorageException("Failed to read stored files", e);
         }
-
     }
 
     @Override

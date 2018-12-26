@@ -1,14 +1,10 @@
 package com.wearegroup11.pabwe.models;
 
 
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
 
 @Entity
 public class Pengumuman {
@@ -18,7 +14,9 @@ public class Pengumuman {
 	private Long id_user;
 	private String judul;
 	private Timestamp tanggal;
-	private String isi;
+
+    @Type(type = "text")
+    private String isi;
 	private String lampiran;
 	@Version
 	private Integer version;

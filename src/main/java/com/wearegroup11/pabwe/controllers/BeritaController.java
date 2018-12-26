@@ -1,9 +1,11 @@
 package com.wearegroup11.pabwe.controllers;
 
-import javax.validation.Valid;
-
+import com.wearegroup11.pabwe.models.Berita;
 import com.wearegroup11.pabwe.models.KomentarBerita;
+import com.wearegroup11.pabwe.services.BeritaService;
 import com.wearegroup11.pabwe.services.KomentarBeritaService;
+import com.wearegroup11.pabwe.services.UserService;
+import com.wearegroup11.pabwe.storage.StorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,18 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wearegroup11.pabwe.models.Berita;
-import com.wearegroup11.pabwe.services.BeritaService;
-import com.wearegroup11.pabwe.services.UserService;
-import com.wearegroup11.pabwe.storage.StorageService;
-
+import javax.validation.Valid;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -96,7 +90,7 @@ public class BeritaController {
 		model.addAttribute("komentar", komentarBeritaService.listKomentarBerita(id));
 
 		userService.findById(berita.getId_user()).ifPresent(user_author -> {
-			model.addAttribute("author", "oleh: "+ user_author.getNamaDepan() + " " + user_author.getNamaBelakang());
+			model.addAttribute("author", user_author.getNamaDepan() + " " + user_author.getNamaBelakang());
 		});
 
 		return "berita/view-berita";

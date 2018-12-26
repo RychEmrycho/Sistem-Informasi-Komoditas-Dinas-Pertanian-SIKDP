@@ -8,42 +8,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    void injectDependency(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @Override
+    public List<User> listUser() {
+        return userRepository.findAll();
+    }
 
     @Override
     public void save(User user) {
-        // TODO Auto-generated method stub
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 //		user.setActive(1);
-
+//        Role userRole = roleRepository.findByRole("KETUA");
         Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        user.setRoles(new HashSet<>(Collections.singletonList(userRole)));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateStatus(User user) {
         userRepository.save(user);
     }
 
     @Override
     public User findByEmail(String email) {
-        // TODO Auto-generated method stub
         return userRepository.findByEmail(email);
     }
 
     @Override
     public Optional<User> findById(Long id) {
-        // TODO Auto-generated method stub
         return userRepository.findById(id);
     }
 }

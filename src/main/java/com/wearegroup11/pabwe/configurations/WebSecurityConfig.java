@@ -1,7 +1,5 @@
 package com.wearegroup11.pabwe.configurations;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,15 +12,20 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private DataSource dataSource;
 
     @Autowired
-    private DataSource dataSource;
+    void injectDependency(BCryptPasswordEncoder bCryptPasswordEncoder, DataSource dataSource) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.dataSource = dataSource;
+    }
 
     private final String USERS_QUERY = "select email, password, active from user where email=?";
     private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
@@ -30,31 +33,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
+        //.antMatchers("/dashboard/**").hasAuthority("ADMIN").anyRequest()
+        //.authenticated().and().csrf().disable()
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/login").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/resources/**", "/css/**", "/styles/**", "/js/**", "/img/**").permitAll()
-//		   .antMatchers("/dashboard/**").hasAuthority("ADMIN").anyRequest()
-//		   .authenticated().and().csrf().disable()
-                .antMatchers("/berita/create").authenticated()
+                .antMatchers("/berita/create").hasAnyAuthority("ADMIN")
+                .antMatchers("/harga-komoditi/create").hasAnyAuthority("ADMIN")
                 .antMatchers("/berita/post-comment-for-berita/{id}").authenticated()
-                .antMatchers("/pengumuman/create").authenticated()
-                .antMatchers("/bantuan/create").authenticated()
-                .antMatchers("/kelompok-tani/create").authenticated()
-                .antMatchers("/laporan-kelompok/create").authenticated()
+                .antMatchers("/pengumuman/create").hasAnyAuthority("ADMIN")
+                .antMatchers("/bantuan/create").hasAnyAuthority("KETUA")
+                .antMatchers("/kelompok-tani/create").hasAnyAuthority("KETUA")
+                .antMatchers("/laporan-kelompok/create").hasAnyAuthority("KETUA")
+                .antMatchers("/hasil-pertanian/create").hasAnyAuthority("KETUA")
                 .and()
-                .formLogin().loginPage("/login").failureUrl("/login?error=true")
+                .formLogin().loginPage("/auth/login").failureUrl("/auth/login?error=true")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .and().logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                 .logoutSuccessUrl("/")
                 .and().rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60 * 60)
-                .and().exceptionHandling().accessDeniedPage("/access_denied");
+                .and().exceptionHandling().accessDeniedPage("/auth/access_denied");
     }
 
     @Autowired

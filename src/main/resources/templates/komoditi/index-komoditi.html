@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="'template/head' :: head"></div>
+
+<body>
+
+<div th:replace="'template/navbar' :: navbar"></div>
+
+<div class="container mt-4 mb-4">
+    <h3 class="mb-4">Daftar Komoditi</h3>
+
+    <!-- Logika nya, jika ada data pada tabel maka akan ditampilkan-->
+    <div th:if="${not #lists.isEmpty(komoditi)}">
+
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Nama komoditi</th>
+                <th>Lama panen</th>
+                <!--<th>Foto</th>-->
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="_komoditi : ${komoditi}">
+                <td th:text="${_komoditi.namaKomoditi}"></td>
+                <td th:text="${_komoditi.lamaPanen}"></td>
+                <!--<td th:text="${_berita.foto}"></td>-->
+                <td>
+                    <a th:href="${'/komoditi/view/' + _komoditi.id}">
+                        <span class="fa fa-eye"></span>
+                    </a>
+                    |
+                    <a th:href="${'/komoditi/edit/' + _komoditi.id}">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    |
+                    <a th:href="${'/komoditi/hapus/' + _komoditi.id}">
+                        <span class="fa fa-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/komoditi/create">Add New</a>
+</div>
+
+<div th:replace="'template/footer' :: footer"></div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+</body>
+</html>

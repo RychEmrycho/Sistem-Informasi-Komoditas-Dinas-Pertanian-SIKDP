@@ -1,29 +1,25 @@
 package com.wearegroup11.pabwe.models;
 
-import org.hibernate.annotations.Type;
-
+import javax.persistence.*;
 import java.sql.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Version;
-
-@Entity
+@Entity(name = "Bantuan")
+@Table(name = "bantuan")
 public class Bantuan {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private String nama_bantuan;
-	private Long id_kelompok;
-	@Type(type = "text")
+
+    private String namaBantuan;
 	private String deskripsi;
-	private String proposal;
-	private String status;
 	private Date tanggal;
+    private String proposal;
+    private Integer status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_kelompok")
+    private KelompokTani kelompokTani;
 	
 	@Version
 	private Integer version;
@@ -36,20 +32,12 @@ public class Bantuan {
 		this.id = id;
 	}
 
-	public String getNama_bantuan() {
-		return nama_bantuan;
-	}
+    public String getNamaBantuan() {
+        return namaBantuan;
+    }
 
-	public void setNama_bantuan(String nama_bantuan) {
-		this.nama_bantuan = nama_bantuan;
-	}
-
-	public Long getId_kelompok() {
-		return id_kelompok;
-	}
-
-	public void setId_kelompok(Long id_kelompok) {
-		this.id_kelompok = id_kelompok;
+    public void setNamaBantuan(String namaBantuan) {
+        this.namaBantuan = namaBantuan;
 	}
 
 	public String getDeskripsi() {
@@ -60,6 +48,14 @@ public class Bantuan {
 		this.deskripsi = deskripsi;
 	}
 
+    public Date getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(Date tanggal) {
+        this.tanggal = tanggal;
+    }
+
 	public String getProposal() {
 		return proposal;
 	}
@@ -68,20 +64,20 @@ public class Bantuan {
 		this.proposal = proposal;
 	}
 
-	public String getStatus() {
+    public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+    public void setStatus(Integer status) {
 		this.status = status;
 	}
 
-	public Date getTanggal() {
-		return tanggal;
-	}
+    public KelompokTani getKelompokTani() {
+        return kelompokTani;
+    }
 
-	public void setTanggal(Date tanggal) {
-		this.tanggal = tanggal;
+    public void setKelompokTani(KelompokTani kelompokTani) {
+        this.kelompokTani = kelompokTani;
 	}
 
 	public Integer getVersion() {

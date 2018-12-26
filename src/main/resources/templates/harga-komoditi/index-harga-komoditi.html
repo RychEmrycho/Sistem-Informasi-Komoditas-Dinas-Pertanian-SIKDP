@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="'template/head' :: head"></div>
+
+<body>
+
+<div th:replace="'template/navbar' :: navbar"></div>
+
+<div class="container mt-4 mb-4">
+    <h3 class="mb-4">Daftar Harga Komoditi</h3>
+
+    <!-- Logika nya, jika ada data pada tabel maka akan ditampilkan-->
+    <div th:if="${not #lists.isEmpty(hargaKomoditi)}">
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <!--<th>Pukul</th>-->
+                <th>Komoditi</th>
+                <th>Waktu update</th>
+                <th>Harga (Rp/Kg)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Banyak data nya array, maka menggunakan for each dari thymeleaf -->
+
+            <tr th:each="_hargaKomoditi : ${hargaKomoditi}">
+                <!--<td><span class="fa fa-clock"></span> <span th:text="${#dates.format(_hargaKomoditi.tanggal, 'HH:mm')}"></span></td>-->
+                <td th:text="${_hargaKomoditi.komoditi.namaKomoditi}"></td>
+                <td th:text="${#dates.format(_hargaKomoditi.tanggal, 'EEEE, dd MMMM yyyy | ''Pukul'' HH:mm ''WIB''')}"></td>
+                <td th:text="'Rp. ' + ${#numbers.formatDecimal(_hargaKomoditi.harga, 0, 'POINT', 2, 'COMMA')}"></td>
+
+                <td>
+                    <a th:href="${'/harga-komoditi/edit/' + _hargaKomoditi.id}">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    |
+                    <a th:href="${'/harga-komoditi/hapus/' + _hargaKomoditi.id}"> <span
+                            class="fa fa-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/harga-komoditi/create">Add New</a>
+</div>
+
+<div th:replace="'template/footer' :: footer"></div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+</body>
+</html>

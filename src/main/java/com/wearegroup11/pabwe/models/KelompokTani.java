@@ -19,11 +19,16 @@ public class KelompokTani {
     private Integer luasDarat;
     private String noTelepon;
     private String proposal;
-    private String status;
+    private Integer status;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "kelompoktani_id")
     private Set<LaporanKelompok> laporanKelompok = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Bantuan> bantuanKelompok = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<HasilPertanian> hasilPertanianKelompok = new HashSet<>();
 
     @Version
     private Integer version;
@@ -104,11 +109,11 @@ public class KelompokTani {
         this.proposal = proposal;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -144,5 +149,41 @@ public class KelompokTani {
     public void removeLaporan(LaporanKelompok laporanKelompok) {
         this.laporanKelompok.remove(laporanKelompok);
         laporanKelompok.setKelompokTani(null);
+    }
+
+    public Set<Bantuan> getBantuanKelompok() {
+        return bantuanKelompok;
+    }
+
+    public void setBantuanKelompok(Set<Bantuan> bantuanKelompok) {
+        this.bantuanKelompok = bantuanKelompok;
+    }
+
+    public void addBantuan(Bantuan bantuan) {
+        this.bantuanKelompok.add(bantuan);
+        bantuan.setKelompokTani(this);
+    }
+
+    public void removeBantuan(Bantuan bantuan) {
+        this.bantuanKelompok.remove(bantuan);
+        bantuan.setKelompokTani(null);
+    }
+
+    public Set<HasilPertanian> getHasilPertanianKelompok() {
+        return hasilPertanianKelompok;
+    }
+
+    public void setHasilPertanianKelompok(Set<HasilPertanian> hasilPertanianKelompok) {
+        this.hasilPertanianKelompok = hasilPertanianKelompok;
+    }
+
+    public void addHasilPertanian(HasilPertanian hasilPertanian) {
+        this.hasilPertanianKelompok.add(hasilPertanian);
+        hasilPertanian.setKelompokTani(this);
+    }
+
+    public void removeHasilPertanian(HasilPertanian hasilPertanian) {
+        this.hasilPertanianKelompok.remove(hasilPertanian);
+        hasilPertanian.setKelompokTani(null);
     }
 }

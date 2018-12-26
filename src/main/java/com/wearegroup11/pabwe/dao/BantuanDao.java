@@ -1,15 +1,13 @@
 package com.wearegroup11.pabwe.dao;
 
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
+import com.wearegroup11.pabwe.models.Bantuan;
+import com.wearegroup11.pabwe.services.BantuanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wearegroup11.pabwe.models.Bantuan;
-import com.wearegroup11.pabwe.services.BantuanService;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 @Service
 public class BantuanDao implements BantuanService {
@@ -50,4 +48,12 @@ public class BantuanDao implements BantuanService {
 		em.getTransaction().commit();
 	}
 
+	@Override
+	public void updateStatus(Integer status, Long id) {
+		em.getTransaction().begin();
+		Bantuan bantuan = em.find(Bantuan.class, id);
+		bantuan.setStatus(status);
+		em.merge(bantuan);
+		em.getTransaction().commit();
+	}
 }

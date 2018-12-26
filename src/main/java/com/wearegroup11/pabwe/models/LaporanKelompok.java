@@ -1,8 +1,7 @@
 package com.wearegroup11.pabwe.models;
 
-import java.sql.Date;
-
 import javax.persistence.*;
+import java.sql.Date;
 
 @Entity(name = "LaporanKelompok")
 @Table(name = "laporan_kelompok")
@@ -14,13 +13,12 @@ public class LaporanKelompok {
 	
 	private String namaLaporan;
 	private String deskripsi;
-	private Integer idKelompok;
 	private Date tanggal;
 	private String laporan;
-	private String status;
+    private Integer status;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "kelompoktani_id")
+    @JoinColumn(name = "id_kelompok")
 	private KelompokTani kelompokTani;
 	
 	@Version
@@ -50,14 +48,6 @@ public class LaporanKelompok {
 		this.deskripsi = deskripsi;
 	}
 
-	public Integer getIdKelompok() {
-		return idKelompok;
-	}
-
-	public void setIdKelompok(Integer idKelompok) {
-		this.idKelompok = idKelompok;
-	}
-
 	public Date getTanggal() {
 		return tanggal;
 	}
@@ -74,11 +64,11 @@ public class LaporanKelompok {
 		this.laporan = laporan;
 	}
 
-	public String getStatus() {
+    public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+    public void setStatus(Integer status) {
 		this.status = status;
 	}
 

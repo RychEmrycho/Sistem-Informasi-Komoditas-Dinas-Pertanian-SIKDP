@@ -1,25 +1,29 @@
 package com.wearegroup11.pabwe.controllers;
 
-import javax.validation.Valid;
-
+import com.wearegroup11.pabwe.models.User;
+import com.wearegroup11.pabwe.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.wearegroup11.pabwe.models.User;
-import com.wearegroup11.pabwe.services.UserService;
+import javax.validation.Valid;
+import java.util.Optional;
 
-@Controller
+@Controller()
+@RequestMapping("auth")
 public class UserController {
-	@Autowired
 	private UserService userService;
+
+	@Autowired
+	void injectDependency(UserService userService) {
+		this.userService = userService;
+	}
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -49,7 +53,7 @@ public class UserController {
 		if (userExist != null) {
 			bindingResult.rejectValue("email", "error.user", "This email already exist!");
 		}
-		
+
 		if (bindingResult.hasErrors()) {
 			model.setViewName("auth/signup");
 		} else {
@@ -59,6 +63,30 @@ public class UserController {
 			model.setViewName("auth/signup");
 		}
 
+		return model;
+	}
+
+	@RequestMapping(value = {"/accept"}, method = RequestMethod.POST)
+	public ModelAndView acceptUser(@RequestParam(name = "id") long id) {
+		ModelAndView model = new ModelAndView();
+		Optional<User> currentUser = userService.findById(id);
+		currentUser.ifPresent(user -> {
+			user.setActive(1);
+			userService.updateStatus(user);
+			model.setViewName("redirect:/dashboard#user");
+		});
+		return model;
+	}
+
+	@RequestMapping(value = {"/reject"}, method = RequestMethod.POST)
+	public ModelAndView rejectUser(@RequestParam(name = "id") long id) {
+		ModelAndView model = new ModelAndView();
+		Optional<User> currentUser = userService.findById(id);
+		currentUser.ifPresent(user -> {
+			user.setActive(2);
+			userService.save(user);
+			model.setViewName("redirect:/dashboard");
+		});
 		return model;
 	}
 

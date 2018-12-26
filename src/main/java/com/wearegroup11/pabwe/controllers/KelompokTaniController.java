@@ -1,20 +1,18 @@
 package com.wearegroup11.pabwe.controllers;
 
+import com.wearegroup11.pabwe.models.KelompokTani;
 import com.wearegroup11.pabwe.services.KecamatanService;
+import com.wearegroup11.pabwe.services.KelompokTaniService;
 import com.wearegroup11.pabwe.services.KelurahanService;
 import com.wearegroup11.pabwe.services.UserService;
 import com.wearegroup11.pabwe.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import com.wearegroup11.pabwe.models.KelompokTani;
-import com.wearegroup11.pabwe.services.KelompokTaniService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -50,19 +48,10 @@ public class KelompokTaniController {
 		model.addAttribute("kecamatan", kecamatanService.listKecamatan());
 
 		KelompokTani kelompokTani = new KelompokTani();
+		kelompokTani.setStatus(0);
 		model.addAttribute("kelompok", kelompokTani);
 		return "kelompok-tani/formKelompokTani";
 	}
-
-	//	@RequestMapping(value = "/save", method = RequestMethod.POST)
-//	public String simpanDataBerita(Model model, final @ModelAttribute(value = "berita")
-//	@Valid Berita berita, BindingResult bindingResult, final @RequestParam(value = "foto") MultipartFile uploadingFile) {
-//		storageService.store(uploadingFile);
-//		berita.setFoto(uploadingFile.getOriginalFilename());
-//
-//		model.addAttribute("berita", beritaService.saveOrUpdate(berita));
-//		return "redirect:/berita";
-//	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String simpanDataKelompoktani(Model model, final @ModelAttribute(value = "kelompok") @Valid KelompokTani kelompokTani, BindingResult bindingResult, final @RequestParam(value = "proposal") MultipartFile uploadedFile) {
@@ -86,4 +75,20 @@ public class KelompokTaniController {
 		return "redirect:/kelompok-tani";
 	}
 
+	private ModelAndView getModelAndView(@RequestParam(name = "id") long id, int i) {
+		ModelAndView model = new ModelAndView();
+		kelompokTaniService.updateStatus(i, id);
+		model.setViewName("redirect:/dashboard#kelompok");
+		return model;
+	}
+
+	@RequestMapping(value = {"/accept"}, method = RequestMethod.POST)
+	public ModelAndView accept(@RequestParam(name = "id") long id) {
+		return getModelAndView(id, 1);
+	}
+
+	@RequestMapping(value = {"/reject"}, method = RequestMethod.POST)
+	public ModelAndView reject(@RequestParam(name = "id") long id) {
+		return getModelAndView(id, 2);
+	}
 }

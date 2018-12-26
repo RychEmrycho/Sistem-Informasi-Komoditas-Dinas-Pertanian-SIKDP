@@ -1,5 +1,7 @@
 package com.wearegroup11.pabwe;
 
+import com.wearegroup11.pabwe.storage.StorageProperties;
+import com.wearegroup11.pabwe.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,9 +9,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
-
-import com.wearegroup11.pabwe.storage.StorageProperties;
-import com.wearegroup11.pabwe.storage.StorageService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
@@ -29,7 +28,8 @@ public class SistemdinaspertanianApplication extends SpringBootServletInitialize
     @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
-            storageService.deleteAll();
+            //DEFAULT it was called, but I just disabled it
+            //storageService.deleteAll();
             storageService.init();
         };
     }

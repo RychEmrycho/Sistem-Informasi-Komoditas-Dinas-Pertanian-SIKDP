@@ -1,10 +1,45 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
 <body>
 
+<footer class="p-5 border-top" th:fragment="footer">
+    <div class="row" th:fragment="footer-content">
+        <div class="col-md-3 border-right" style="text-align: center;">
+            <img alt="" class="mb-2" height="72" th:src="@{/img/brand.png}" width="72">
+            <br>
+            <strong>SIKDP</strong>
+            <p>Sistem Informasi Kelompok Dinas Pertanian</p>
+            <small class="d-block mb-3 text-muted">Copyright &copy; 2018
+                SIKDP. All rights reversed.
+            </small>
+        </div>
+        <div class="pl-2 col-md-3">
+            <h5 class="pl-2 ">Pintasan</h5>
+            <ul class="pl-2 list-unstyled text-small">
+                <li><a class="text-muted" href="#">Dashboard</a></li>
+                <li><a class="text-muted" href="#">Kelompok Tani</a></li>
+                <li><a class="text-muted" href="#">Komoditi</a></li>
+                <li><a class="text-muted" href="#">Bantuan</a></li>
+            </ul>
+        </div>
+        <div class="pl-2 col-md-3">
+            <h5 class="pl-2 ">Laporan</h5>
+            <ul class="pl-2 list-unstyled text-small">
+                <li><a class="text-muted" href="#">Laporan Kelompok Tani</a></li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <h5 class="pl-2">Terkait</h5>
+            <ul class="pl-2 list-unstyled text-small">
+                <li><a class="text-muted" href="#">Kabupaten P.Siantar</a></li>
+                <li><a class="text-muted" href="#">Locations</a></li>
+                <li><a class="text-muted" href="#">Privacy</a></li>
+                <li><a class="text-muted" href="#">Terms</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 </body>
+
 </html>

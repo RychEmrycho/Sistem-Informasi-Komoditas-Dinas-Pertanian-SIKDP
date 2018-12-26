@@ -1,12 +1,21 @@
-<!-- Bootstrap core CSS -->
-<!-- <link th:href="@{/css/bootstrap.css}" rel="stylesheet" media="screen" /> -->
-<!-- Custom styles for this template -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	crossorigin="anonymous">
-<link th:href="@{/styles/styles.css}" rel="stylesheet" media="screen" />
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-	integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-	crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <title>Home | SIKDP</title>
+    <link rel="icon" th:href="@{/img/brand.png}">
+    <link crossorigin="anonymous"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          rel="stylesheet">
+    <link media="screen" rel="stylesheet" th:href="@{/styles/styles.css}"/>
+    <link media="screen" rel="stylesheet" th:href="@{/styles/signin.css}"/>
+    <link media="screen" rel="stylesheet" th:href="@{/styles/dashboard.css}"/>
+    <link crossorigin="anonymous"
+          href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+          integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Poppins|Raleway" rel="stylesheet">
+</head>
+
+</html>

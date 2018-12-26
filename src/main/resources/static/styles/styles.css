@@ -103,7 +103,7 @@ span, small
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-	/*background-image: url("/img/cowboys.jpeg");*/
+    background-image: url("/img/cowboys.jpeg");
 	padding-top: 10rem;
 }
 

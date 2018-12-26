@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id"
+      xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="'template/head' :: head"></div>
+
+<body>
+
+<div th:replace="'template/navbar' :: navbar"></div>
+
+<div class="container mt-4 mb-4">
+    <h3 class="mb-4">Daftar bantuan</h3>
+
+    <div th:if="${not #lists.isEmpty(bantuan)}">
+
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Nama Bantuan</th>
+                <th>Kelompok Tani</th>
+                <th>Proposal</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Banyak data nya array, maka menggunakan for each dari thymeleaf -->
+
+            <tr th:each="_bantuan : ${bantuan}">
+                <td th:text="${_bantuan.namaBantuan}"></td>
+                <td th:text="${kelompokService.getKelompokTaniById(_bantuan.kelompokTani.id).getNamaKelompok()}"></td>
+                <td th:text="${_bantuan.proposal}"></td>
+                <td th:text="${_bantuan.status}"></td>
+                <td><a th:href="${'/bantuan/view/' + _bantuan.id}">
+                    <span class="fa fa-eye"></span> View
+                </a> | <a th:href="${'/bantuan/edit/' + _bantuan.id}">
+                    <span class="fa fa-edit"></span> Edit
+                </a> | <a th:href="${'/bantuan/hapus/' + _bantuan.id}"> <span
+                        class="fa fa-trash"></span> Delete
+                </a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/bantuan/create">Add New</a>
+</div>
+
+
+<div th:replace="'template/footer' :: footer"></div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+</body>
+</html>

@@ -1,69 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head lang="en">
-    <title>Daftar Kelompok Tani | SIKDP</title>
-    <!-- Bootstrap core CSS -->
-    <!-- <link th:href="@{/css/bootstrap.css}" rel="stylesheet" media="screen" /> -->
-    <!-- Custom styles for this template -->
-    <!-- <link th:href="@{/styles/styles.css}" rel="stylesheet" media="screen" /> -->
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-          crossorigin="anonymous">
-    <script
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            crossorigin="anonymous"></script>
-</head>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="'template/head' :: head"></div>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="#"> <img th:src="@{/img/brand.png}"
-                                           width="30" height="30" class="d-inline-block align-top" alt="">
-        SIKDP
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-            <li class="nav-item active"><a class="nav-link" href="#">Kelompok
-                Tani <span class="sr-only">(current)</span>
-            </a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Komoditi</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Pertanian</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Bantuan</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Polling</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Pengumuman</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">Forum</a></li>
-            <li class="nav-item dropdown"><a
-                    class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                    role="button" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false"> More </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a> <a
-                        class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <!-- 				<input class="form-control mr-sm-2" type="search"
-                placeholder="Search" aria-label="Search">
--->
-            <button class="btn btn-outline-info my-2 my-sm-0" type="submit">Log
-                out
-            </button>
-        </form>
-    </div>
-</nav>
+<div th:replace="'template/navbar' :: navbar"></div>
 
-<div class="container" style="margin-top: 80px; margin-bottom: 60px;">
+<div class="container mt-4 mb-4">
 
     <h2>Tambahkan Laporan Kelompok</h2>
 
@@ -71,10 +15,10 @@
     <div class="row">
         <div class="col-sm-8">
             <form class="form-horizontal" th:object="${laporanKelompok}"
-                  th:action="@{/laporan-kelompok/save}" method="post" enctype="multipart/form-data">
+                  enctype="multipart/form-data" method="post" th:action="@{/laporan-kelompok/create}">
                 <input type="hidden" th:field="*{id}"/>
                 <input type="hidden" th:field="*{version}"/>
-                <input type="hidden" th:field="*{idKelompok}"/>
+                <input th:field="*{kelompokTani}" type="hidden"/>
 
                 <div class="form-group">
                     <label class="col-sm-3 control-label">Nama Laporan:</label>
@@ -119,59 +63,21 @@
     </div>
 </div>
 
-<footer class="p-5 border-top">
-    <div class="row">
-        <div class="col-md-3 border-right" style="text-align: center;">
-            <img class="mb-2" th:src="@{/img/brand.png}" alt="" width="72"
-                 height="72"> <br> <strong>SIKDP</strong>
-            <p>Sistem Informasi Kelompok Dinas Pertanian</p>
-            <small class="d-block mb-3 text-muted">Copyright &copy; 2018
-                SIKDP. All rights reversed.
-            </small>
-        </div>
-        <div class="pl-2 col-md-3">
-            <h5 class="pl-2 ">Laman</h5>
-            <ul class="pl-2 list-unstyled text-small">
-                <li><a class="text-muted" href="#">Laman A</a></li>
-                <li><a class="text-muted" href="#">Laman B</a></li>
-                <li><a class="text-muted" href="#">Laman C</a></li>
-                <li><a class="text-muted" href="#">Laman D</a></li>
-            </ul>
-        </div>
-        <div class="pl-2 col-md-3">
-            <h5 class="pl-2 ">Laporan</h5>
-            <ul class="pl-2 list-unstyled text-small">
-                <li><a class="text-muted" href="#">Laporan A</a></li>
-                <li><a class="text-muted" href="#">Laporan B</a></li>
-                <li><a class="text-muted" href="#">Laporan C</a></li>
-                <li><a class="text-muted" href="#">Laporan D</a></li>
-            </ul>
-        </div>
-        <div class="col-md-3">
-            <h5 class="pl-2">Terkait</h5>
-            <ul class="pl-2 list-unstyled text-small">
-                <li><a class="text-muted" href="#">Kabupaten P.Siantar</a></li>
-                <li><a class="text-muted" href="#">Locations</a></li>
-                <li><a class="text-muted" href="#">Privacy</a></li>
-                <li><a class="text-muted" href="#">Terms</a></li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
-<!-- /.container -->
+<div th:replace="'template/footer' :: footer"></div>
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
-
-<!-- 	<script th:src="@{/js/jquery.js}"></script>
-<script th:src="@{/js/bootstrap.js}"></script> -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
         crossorigin="anonymous"></script>
 <script
         src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
+
 </body>
 </html>

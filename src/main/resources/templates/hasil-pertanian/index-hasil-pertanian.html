@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="'template/head' :: head"></div>
+
+<body>
+
+<div th:replace="'template/navbar' :: navbar"></div>
+
+<div class="container mt-4 mb-4">
+    <h3 class="mb-4">Daftar Hasil Pertanian</h3>
+
+    <!-- Logika nya, jika ada data pada tabel maka akan ditampilkan-->
+    <div th:if="${not #lists.isEmpty(hasilPertanian)}">
+
+        <table class="table table-hover table-bordered table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <!--<th>Nama Kelompok</th>-->
+                <th>Komoditi</th>
+                <th>Tanggal panen</th>
+                <th>Luas lahan (m<sup>2</sup>)</th>
+                <th>Hasil panen (kg)</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Banyak data nya array, maka menggunakan for each dari thymeleaf -->
+
+            <tr th:each="_hasilPertanian : ${hasilPertanian}">
+                <!--<td th:text="${_hasilPertanian.kelompokTani.namaKelompok}"></td>-->
+                <td th:text="${_hasilPertanian.komoditi.namaKomoditi}"></td>
+                <td th:text="${#dates.format(_hasilPertanian.bulan, 'EEEE, dd MMMM yyyy')}"></td>
+                <td th:text="${#numbers.formatInteger(_hasilPertanian.luasLahan, 0, 'POINT')}"></td>
+                <td th:text="${#numbers.formatInteger(_hasilPertanian.jumlahHasilPanen, 0, 'POINT')}"></td>
+
+                <td>
+                    <a th:href="${'/hasil-pertanian/edit/' + _hasilPertanian.id}">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                    |
+                    <a th:href="${'/hasil-pertanian/hapus/' + _hasilPertanian.id}"> <span
+                            class="fa fa-trash"></span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn-primary" href="/hasil-pertanian/create">Add New</a>
+</div>
+
+<div th:replace="'template/footer' :: footer"></div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+        crossorigin="anonymous"
+        integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+
+</body>
+</html>

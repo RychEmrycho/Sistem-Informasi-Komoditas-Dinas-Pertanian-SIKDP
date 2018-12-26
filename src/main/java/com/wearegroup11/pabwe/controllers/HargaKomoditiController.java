@@ -63,7 +63,6 @@ public class HargaKomoditiController {
         return "harga-komoditi/formHargaKomoditi";
     }
 
-
     @RequestMapping("/hapus/{id}")
     public String deleteDataHargaKomoditi(@PathVariable("id") long id) {
         hargaKomoditiService.delete(id);

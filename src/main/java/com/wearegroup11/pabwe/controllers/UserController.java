@@ -31,7 +31,6 @@ public class UserController {
 	public ModelAndView signIn() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName("auth/signin");
-		
 		return model;
 	}
 	

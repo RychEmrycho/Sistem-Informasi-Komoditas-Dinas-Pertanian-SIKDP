@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<html lang="id" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <div th:replace="'template/head' :: head"></div>
 
@@ -35,11 +35,10 @@
                 <td th:text="${#numbers.formatInteger(_hasilPertanian.jumlahHasilPanen, 0, 'POINT')}"></td>
 
                 <td>
-                    <a th:href="${'/hasil-pertanian/edit/' + _hasilPertanian.id}">
+                    <a sec:authorize="hasAuthority('KETUA')" th:href="${'/hasil-pertanian/edit/' + _hasilPertanian.id}">
                         <span class="fa fa-edit"></span>
                     </a>
-                    |
-                    <a th:href="${'/hasil-pertanian/hapus/' + _hasilPertanian.id}"> <span
+                    <a sec:authorize="hasAuthority('KETUA')" th:href="${'/hasil-pertanian/hapus/' + _hasilPertanian.id}"> <span
                             class="fa fa-trash"></span>
                     </a>
                 </td>

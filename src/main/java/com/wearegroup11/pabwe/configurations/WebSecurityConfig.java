@@ -37,9 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/login").permitAll()
                 .antMatchers("/auth/signup").permitAll()
                 .antMatchers("/resources/**", "/css/**", "/styles/**", "/js/**", "/img/**").permitAll()
-
                 .antMatchers("/berita/post-comment-for-berita/{id}").authenticated()
-
+                .antMatchers("/dashboard").authenticated()
                 .antMatchers("/pengumuman/create", "/pengumuman/save", "/pengumuman/edit/**", "/pengumuman/hapus/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/laporan-kelompok/accept", "/laporan-kelompok/reject").hasAnyAuthority("ADMIN")
                 .antMatchers("/kelompok-tani/accept", "/kelompok-tani/reject").hasAnyAuthority("ADMIN")
@@ -50,33 +49,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/bantuan/accept", "/bantuan/reject").hasAnyAuthority("ADMIN")
                 .antMatchers("/berita/create", "/berita/save", "/berita/edit/**", "/berita/hapus/**").hasAnyAuthority("ADMIN")
                 .antMatchers("/auth/accept", "/auth/reject").hasAnyAuthority("ADMIN")
-
                 .antMatchers("/kelompok-tani/create", "/kelompok-tani/edit/**", "/kelompok-tani/hapus/**").hasAnyAuthority("KETUA")
                 .antMatchers("/hasil-pertanian/create", "/hasil-pertanian/save", "/hasil-pertanian/edit/**", "/hasil-pertanian/hapus/**").hasAnyAuthority("KETUA")
                 .antMatchers("/laporan-kelompok/create", "/laporan-kelompok/edit/**", "/laporan-kelompok/hapus/**").hasAnyAuthority("KETUA")
                 .antMatchers("/bantuan/create", "/bantuan/edit/**", "/bantuan/hapus/**").hasAnyAuthority("KETUA")
-
                 .and()
-
                 .formLogin().loginPage("/auth/login").failureUrl("/auth/login?error=true")
                 .defaultSuccessUrl("/")
                 .usernameParameter("email")
                 .passwordParameter("password")
-
                 .and()
-
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                 .logoutSuccessUrl("/")
-
                 .and()
-
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(60 * 60)
-
                 .and()
-
                 .exceptionHandling().accessDeniedPage("/auth/access_denied");
     }
 

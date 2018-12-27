@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<html lang="id" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <div th:replace="'template/head' :: head"></div>
 
@@ -31,12 +31,10 @@
                     <a th:href="${'/berita/view/' + _berita.id}">
                         <span class="fa fa-eye"></span>
                     </a>
-                    |
-                    <a th:href="${'/berita/edit/' + _berita.id}">
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/berita/edit/' + _berita.id}">
                         <span class="fa fa-edit"></span>
                     </a>
-                    |
-                    <a th:href="${'/berita/hapus/' + _berita.id}">
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="${'/berita/hapus/' + _berita.id}">
                         <span class="fa fa-trash"></span>
                     </a>
                 </td>
@@ -44,7 +42,7 @@
             </tbody>
         </table>
     </div>
-    <a class="btn btn-primary" href="/berita/create">Add New</a>
+    <a sec:authorize="hasAuthority('ADMIN')" class="btn btn-primary" href="/berita/create">Add New</a>
 </div>
 
 <div th:replace="'template/footer' :: footer"></div>
